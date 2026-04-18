@@ -81,13 +81,10 @@ export default function Navbar() {
         }}
       >
         {/* Logo */}
-        <button onClick={() => handleNav('#home')} className="flex items-center gap-2.5 group">
-          <div className="relative w-8 h-8">
+        <button onClick={() => handleNav('#home')} className="flex items-center group">
+          <div className="relative w-12 h-12">
             <Image src="/logo.png" alt="Arioun AI" fill className="object-contain" />
           </div>
-          <span className="font-bold text-lg tracking-tight" style={{ color: 'var(--text-0)' }}>
-            arioun<span className="gradient-text-tri">.ai</span>
-          </span>
         </button>
 
         {/* Desktop links */}
