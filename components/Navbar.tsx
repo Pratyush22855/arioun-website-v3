@@ -82,7 +82,7 @@ export default function Navbar() {
       >
         {/* Logo */}
         <button onClick={() => handleNav('#home')} className="flex items-center group">
-          <div className="relative w-12 h-12">
+          <div className="relative w-24 h-24">
             <Image src="/logo.png" alt="Arioun AI" fill className="object-contain" />
           </div>
         </button>
