@@ -34,11 +34,12 @@ const faqs = [
   },
 ];
 
-// Pure CSS accordion — no Framer Motion layout recalc, no lag on mobile
+// grid-template-rows 0fr→1fr is the only height animation that doesn't
+// trigger a full page reflow — perfect for mobile accordions
 function FAQItem({ item, isOpen, onToggle }: { item: typeof faqs[0]; isOpen: boolean; onToggle: () => void }) {
   return (
     <div
-      className="rounded-2xl overflow-hidden cursor-pointer"
+      className="rounded-2xl cursor-pointer"
       style={{
         background: isOpen ? 'rgba(124,58,237,0.06)' : 'rgba(10,10,24,0.6)',
         border: isOpen ? '1px solid rgba(124,58,237,0.3)' : '1px solid rgba(124,58,237,0.1)',
@@ -54,7 +55,6 @@ function FAQItem({ item, isOpen, onToggle }: { item: typeof faqs[0]; isOpen: boo
         >
           {item.q}
         </h3>
-        {/* CSS rotate — no Framer Motion, instant GPU */}
         <div
           className="shrink-0 w-7 h-7 rounded-full flex items-center justify-center"
           style={{
@@ -70,18 +70,19 @@ function FAQItem({ item, isOpen, onToggle }: { item: typeof faqs[0]; isOpen: boo
         </div>
       </div>
 
-      {/* CSS max-height accordion — GPU composited, smooth on all devices */}
+      {/* grid-template-rows: 0fr → 1fr is GPU composited, no reflow */}
       <div
         style={{
-          maxHeight: isOpen ? '400px' : '0',
-          opacity: isOpen ? 1 : 0,
-          overflow: 'hidden',
-          transition: 'max-height 0.35s ease, opacity 0.25s ease',
+          display: 'grid',
+          gridTemplateRows: isOpen ? '1fr' : '0fr',
+          transition: 'grid-template-rows 0.3s ease',
         }}
       >
-        <p className="px-6 pb-6 text-sm leading-relaxed" style={{ color: 'var(--text-2)' }}>
-          {item.a}
-        </p>
+        <div style={{ overflow: 'hidden' }}>
+          <p className="px-6 pb-6 text-sm leading-relaxed" style={{ color: 'var(--text-2)' }}>
+            {item.a}
+          </p>
+        </div>
       </div>
     </div>
   );
