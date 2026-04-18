@@ -230,6 +230,52 @@ textarea.form-input { resize: vertical; min-height: 130px; }
 /* ── Calendly ─── */
 .calendly-inline-widget { min-width: 280px; height: 680px; }
 
+/* ─────────────────────────────────────────────────────────────
+   MOBILE PERFORMANCE — disable GPU-killing animations on phones
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  /* Box-shadow pulse is extremely expensive on mobile GPUs */
+  .btn-glow {
+    animation: none !important;
+    box-shadow: 0 0 18px rgba(124,58,237,0.45) !important;
+  }
+
+  /* Float animations trigger layout — kill them */
+  .float, .float2, .float3 {
+    animation: none !important;
+  }
+
+  /* Shimmer gradient position shift repaints entire element each frame */
+  .shimmer-text {
+    animation: none !important;
+    background: linear-gradient(135deg, var(--violet-light) 0%, var(--cyan) 100%) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+  }
+
+  /* Slow down spin decorations — less GPU time */
+  .spin-slow     { animation-duration: 50s !important; }
+  .spin-slow-rev { animation-duration: 40s !important; }
+
+  /* Aurora drift animations in other sections — disable */
+  @keyframes aurora-drift-1 { 0%,100% { transform: none; opacity: 0.2; } }
+  @keyframes aurora-drift-2 { 0%,100% { transform: none; opacity: 0.15; } }
+  @keyframes aurora-drift-3 { 0%,100% { transform: none; opacity: 0.12; } }
+  @keyframes aurora-drift-4 { 0%,100% { transform: none; opacity: 0.1; } }
+
+  /* Calendly height reduced on small screens */
+  .calendly-inline-widget { height: 500px; }
+}
+
+/* GPU compositing hints for consistently animated elements */
+.marquee-track,
+.btn-glow,
+.spin-slow,
+.spin-slow-rev {
+  will-change: transform;
+}
+
 /* ── Noise overlay ─── */
 .noise-overlay::after {
   content:'';

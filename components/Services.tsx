@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, MouseEvent } from 'react';
+import { useRef, useState, useEffect, MouseEvent } from 'react';
 import { motion } from 'framer-motion';
 import { Zap, Bot, GitMerge, Send, BarChart2, CheckCircle } from 'lucide-react';
 
@@ -72,7 +72,7 @@ const services = [
   },
 ];
 
-function TiltCard({ service, index }: { service: typeof services[0]; index: number }) {
+function TiltCard({ service, index, isMobile }: { service: typeof services[0]; index: number; isMobile: boolean }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [glowPos, setGlowPos] = useState({ x: 50, y: 50 });
@@ -80,6 +80,7 @@ function TiltCard({ service, index }: { service: typeof services[0]; index: numb
   const { Icon } = service;
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (isMobile) return; // touch devices don't need tilt
     const card = cardRef.current;
     if (!card) return;
     const rect = card.getBoundingClientRect();
@@ -102,10 +103,10 @@ function TiltCard({ service, index }: { service: typeof services[0]; index: numb
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.65, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setHovered(true)}
+      onMouseEnter={() => !isMobile && setHovered(true)}
       onMouseLeave={handleMouseLeave}
-      animate={{ rotateX: tilt.x, rotateY: tilt.y }}
-      style={{
+      animate={isMobile ? {} : { rotateX: tilt.x, rotateY: tilt.y }}
+      style={isMobile ? {} : {
         perspective: 1000,
         transformStyle: 'preserve-3d',
         transition: 'transform 0.15s ease',
@@ -192,6 +193,14 @@ function TiltCard({ service, index }: { service: typeof services[0]; index: numb
 }
 
 export default function Services() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check, { passive: true });
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
   const handleNav = (href: string) => {
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -220,7 +229,7 @@ export default function Services() {
         {/* 3D Tilt Bento grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8" style={{ perspective: '1200px' }}>
           {services.map((s, i) => (
-            <TiltCard key={i} service={s} index={i} />
+            <TiltCard key={i} service={s} index={i} isMobile={isMobile} />
           ))}
         </div>
 
