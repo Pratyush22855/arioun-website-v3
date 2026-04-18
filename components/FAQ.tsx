@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const faqs = [
   {
@@ -14,7 +14,7 @@ const faqs = [
   },
   {
     q: 'Do I need any technical knowledge?',
-    a: 'None at all. We handle the entire build — from strategy to deployment. You\'ll be trained on how to use your new system, but you don\'t need to touch any code or technical configuration. We speak plain English, not jargon.',
+    a: "None at all. We handle the entire build — from strategy to deployment. You'll be trained on how to use your new system, but you don't need to touch any code or technical configuration. We speak plain English, not jargon.",
   },
   {
     q: 'What tools do you integrate with?',
@@ -26,7 +26,7 @@ const faqs = [
   },
   {
     q: 'What happens after the system is built?',
-    a: 'We don\'t just deliver and disappear. We monitor your system\'s performance, provide ongoing support, and continuously optimise based on real data. Think of us as your long-term AI operations partner, not a one-time vendor.',
+    a: "We don't just deliver and disappear. We monitor your system's performance, provide ongoing support, and continuously optimise based on real data. Think of us as your long-term AI operations partner, not a one-time vendor.",
   },
   {
     q: 'Is my data secure?',
@@ -34,57 +34,56 @@ const faqs = [
   },
 ];
 
+// Pure CSS accordion — no Framer Motion layout recalc, no lag on mobile
 function FAQItem({ item, isOpen, onToggle }: { item: typeof faqs[0]; isOpen: boolean; onToggle: () => void }) {
   return (
-    <motion.div
-      layout
-      className="rounded-2xl overflow-hidden cursor-pointer group"
+    <div
+      className="rounded-2xl overflow-hidden cursor-pointer"
       style={{
         background: isOpen ? 'rgba(124,58,237,0.06)' : 'rgba(10,10,24,0.6)',
         border: isOpen ? '1px solid rgba(124,58,237,0.3)' : '1px solid rgba(124,58,237,0.1)',
-        backdropFilter: 'blur(8px)',
-        transition: 'border-color 0.3s, background 0.3s',
+        transition: 'border-color 0.25s, background 0.25s',
       }}
       onClick={onToggle}
     >
+      {/* Header row */}
       <div className="flex items-center justify-between gap-4 px-6 py-5">
-        <h3 className="font-semibold text-base leading-snug" style={{ color: isOpen ? 'var(--text-0)' : 'var(--text-1)' }}>
+        <h3
+          className="font-semibold text-base leading-snug"
+          style={{ color: isOpen ? 'var(--text-0)' : 'var(--text-1)', transition: 'color 0.2s' }}
+        >
           {item.q}
         </h3>
-        <motion.div
-          animate={{ rotate: isOpen ? 45 : 0 }}
-          transition={{ duration: 0.25 }}
+        {/* CSS rotate — no Framer Motion, instant GPU */}
+        <div
           className="shrink-0 w-7 h-7 rounded-full flex items-center justify-center"
           style={{
             background: isOpen ? 'var(--primary)' : 'rgba(124,58,237,0.12)',
             color: isOpen ? '#fff' : 'var(--primary-light)',
+            transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)',
+            transition: 'transform 0.25s ease, background 0.25s, color 0.25s',
           }}
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
           </svg>
-        </motion.div>
+        </div>
       </div>
 
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            style={{ overflow: 'hidden' }}
-          >
-            <p
-              className="px-6 pb-6 text-sm leading-relaxed"
-              style={{ color: 'var(--text-2)' }}
-            >
-              {item.a}
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
+      {/* CSS max-height accordion — GPU composited, smooth on all devices */}
+      <div
+        style={{
+          maxHeight: isOpen ? '400px' : '0',
+          opacity: isOpen ? 1 : 0,
+          overflow: 'hidden',
+          transition: 'max-height 0.35s ease, opacity 0.25s ease',
+        }}
+      >
+        <p className="px-6 pb-6 text-sm leading-relaxed" style={{ color: 'var(--text-2)' }}>
+          {item.a}
+        </p>
+      </div>
+    </div>
   );
 }
 
@@ -99,7 +98,7 @@ export default function FAQ() {
   return (
     <section className="relative py-28 overflow-hidden grid-bg">
       <div
-        className="absolute top-1/2 right-0 -translate-y-1/2 w-[400px] h-[400px] rounded-full pointer-events-none"
+        className="aurora-bg absolute top-1/2 right-0 -translate-y-1/2 w-[400px] h-[400px] rounded-full pointer-events-none"
         style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.06) 0%, transparent 70%)', filter: 'blur(80px)' }}
         aria-hidden
       />
@@ -115,19 +114,11 @@ export default function FAQ() {
         >
           <div
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase mb-6"
-            style={{
-              background: 'rgba(124,58,237,0.08)',
-              border: '1px solid rgba(124,58,237,0.2)',
-              color: 'var(--primary-light)',
-              letterSpacing: '0.1em',
-            }}
+            style={{ background: 'rgba(124,58,237,0.08)', border: '1px solid rgba(124,58,237,0.2)', color: 'var(--primary-light)', letterSpacing: '0.1em' }}
           >
             FAQ
           </div>
-          <h2
-            className="font-bold leading-tight mb-4"
-            style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: 'var(--text-0)' }}
-          >
+          <h2 className="font-bold leading-tight mb-4" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: 'var(--text-0)' }}>
             Questions, <span className="gradient-text">answered</span>
           </h2>
           <p className="text-base" style={{ color: 'var(--text-2)' }}>
@@ -135,28 +126,21 @@ export default function FAQ() {
           </p>
         </motion.div>
 
-        {/* FAQ list */}
+        {/* FAQ list — plain divs, no Framer Motion per-item */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          transition={{ duration: 0.5 }}
           className="flex flex-col gap-3"
         >
           {faqs.map((item, i) => (
-            <motion.div
+            <FAQItem
               key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.06 }}
-            >
-              <FAQItem
-                item={item}
-                isOpen={open === i}
-                onToggle={() => setOpen(open === i ? null : i)}
-              />
-            </motion.div>
+              item={item}
+              isOpen={open === i}
+              onToggle={() => setOpen(open === i ? null : i)}
+            />
           ))}
         </motion.div>
 
@@ -165,16 +149,11 @@ export default function FAQ() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
           className="mt-14 text-center rounded-3xl p-10"
-          style={{
-            background: 'rgba(10,10,24,0.7)',
-            border: '1px solid rgba(124,58,237,0.15)',
-          }}
+          style={{ background: 'rgba(10,10,24,0.7)', border: '1px solid rgba(124,58,237,0.15)' }}
         >
-          <p className="text-lg font-semibold mb-2" style={{ color: 'var(--text-0)' }}>
-            Still have questions?
-          </p>
+          <p className="text-lg font-semibold mb-2" style={{ color: 'var(--text-0)' }}>Still have questions?</p>
           <p className="text-sm mb-6" style={{ color: 'var(--text-2)' }}>
             Book a free call — we'll answer everything and walk you through the process.
           </p>
@@ -187,7 +166,7 @@ export default function FAQ() {
           >
             Book a Free Discovery Call
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+              <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
             </svg>
           </motion.button>
         </motion.div>
