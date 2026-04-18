@@ -48,8 +48,8 @@ export default function HowItWorks() {
   return (
     <section id="how-it-works" className="relative py-28 overflow-hidden grid-bg">
       {/* Bg glows */}
-      <div className="absolute right-0 top-0 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(34,211,238,0.07) 0%, transparent 70%)', filter: 'blur(100px)' }} aria-hidden />
-      <div className="absolute left-0 bottom-0 w-[400px] h-[400px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(236,72,153,0.06) 0%, transparent 70%)', filter: 'blur(100px)' }} aria-hidden />
+      <div className="aurora-bg absolute right-0 top-0 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(34,211,238,0.07) 0%, transparent 70%)', filter: 'blur(100px)' }} aria-hidden />
+      <div className="aurora-bg absolute left-0 bottom-0 w-[400px] h-[400px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(236,72,153,0.06) 0%, transparent 70%)', filter: 'blur(100px)' }} aria-hidden />
 
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}

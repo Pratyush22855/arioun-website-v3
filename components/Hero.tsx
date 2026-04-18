@@ -6,9 +6,9 @@ import { PhoneCall, ArrowRight, Sparkles } from 'lucide-react';
 
 /* ── Word-by-word spring drop ─── */
 const wordVariants = {
-  hidden:  { opacity: 0, y: 40, rotateX: -30, filter: 'blur(8px)' },
+  hidden:  { opacity: 0, y: 40, rotateX: -30 },
   visible: (i: number) => ({
-    opacity: 1, y: 0, rotateX: 0, filter: 'blur(0px)',
+    opacity: 1, y: 0, rotateX: 0,
     transition: { delay: i * 0.1, type: 'spring' as const, stiffness: 100, damping: 16 },
   }),
 };

@@ -44,8 +44,8 @@ export default function Stats() {
   return (
     <section id="about" className="relative py-28 overflow-hidden">
       {/* Blobs */}
-      <div className="absolute left-0 top-1/3 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%)', filter: 'blur(100px)' }} aria-hidden />
-      <div className="absolute right-0 bottom-1/3 w-[400px] h-[400px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(236,72,153,0.06) 0%, transparent 70%)', filter: 'blur(100px)' }} aria-hidden />
+      <div className="aurora-bg absolute left-0 top-1/3 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%)', filter: 'blur(100px)' }} aria-hidden />
+      <div className="aurora-bg absolute right-0 bottom-1/3 w-[400px] h-[400px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(236,72,153,0.06) 0%, transparent 70%)', filter: 'blur(100px)' }} aria-hidden />
 
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
