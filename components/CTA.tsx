@@ -18,7 +18,7 @@ export default function CTA() {
           viewport={{ once: true }}
           transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           className="relative rounded-[2rem] p-14 text-center overflow-hidden"
-          style={{ background: 'rgba(7,4,26,0.9)', border: '1px solid rgba(124,58,237,0.2)' }}
+          style={{ background: 'rgba(248,245,255,0.97)', border: '1px solid rgba(124,58,237,0.18)', boxShadow: '0 8px 48px rgba(124,58,237,0.10)' }}
         >
           {/* Layered gradient background */}
           <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 30% 0%, rgba(124,58,237,0.25) 0%, transparent 55%)' }} aria-hidden />
@@ -103,7 +103,7 @@ export default function CTA() {
                 whileTap={{ scale: 0.97 }}
                 onClick={() => handleNav('#services')}
                 className="gradient-border inline-flex items-center justify-center gap-2.5 px-10 py-4 rounded-2xl font-semibold text-base"
-                style={{ background: 'rgba(255,255,255,0.04)', color: 'var(--text-1)' }}
+                style={{ background: 'rgba(124,58,237,0.06)', color: 'var(--text-0)' }}
               >
                 See All Services <ArrowRight size={15} />
               </motion.button>

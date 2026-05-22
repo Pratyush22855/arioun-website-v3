@@ -41,8 +41,9 @@ function FAQItem({ item, isOpen, onToggle }: { item: typeof faqs[0]; isOpen: boo
     <div
       className="rounded-2xl cursor-pointer"
       style={{
-        background: isOpen ? 'rgba(124,58,237,0.06)' : 'rgba(10,10,24,0.6)',
-        border: isOpen ? '1px solid rgba(124,58,237,0.3)' : '1px solid rgba(124,58,237,0.1)',
+        background: isOpen ? 'rgba(124,58,237,0.06)' : 'rgba(255,255,255,0.92)',
+        border: isOpen ? '1px solid rgba(124,58,237,0.3)' : '1px solid rgba(124,58,237,0.12)',
+        boxShadow: '0 2px 12px rgba(0,0,0,0.04)',
         transition: 'border-color 0.25s, background 0.25s',
       }}
       onClick={onToggle}
@@ -152,7 +153,7 @@ export default function FAQ() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
           className="mt-14 text-center rounded-3xl p-10"
-          style={{ background: 'rgba(10,10,24,0.7)', border: '1px solid rgba(124,58,237,0.15)' }}
+          style={{ background: 'rgba(248,245,255,0.95)', border: '1px solid rgba(124,58,237,0.15)', boxShadow: '0 4px 24px rgba(124,58,237,0.07)' }}
         >
           <p className="text-lg font-semibold mb-2" style={{ color: 'var(--text-0)' }}>Still have questions?</p>
           <p className="text-sm mb-6" style={{ color: 'var(--text-2)' }}>

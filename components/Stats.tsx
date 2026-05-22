@@ -5,19 +5,19 @@ import { useEffect, useRef } from 'react';
 import { Target, Eye, Timer, TrendingUp, Users, Clock, Scale, Handshake } from 'lucide-react';
 
 const stats = [
-  { end: 100, suffix: '%', label: 'Automated',        sub: 'Zero manual tasks left',   color: '#a78bfa', gradient: 'linear-gradient(135deg,rgba(124,58,237,0.18),rgba(124,58,237,0.03))' },
-  { end: 3,   suffix: '×', label: 'Lead Response',    sub: 'Faster than before',       color: '#22d3ee', gradient: 'linear-gradient(135deg,rgba(34,211,238,0.15),rgba(34,211,238,0.02))' },
-  { end: 40,  suffix: '%', label: 'More Conversions', sub: 'Average client uplift',     color: '#f9a8d4', gradient: 'linear-gradient(135deg,rgba(236,72,153,0.15),rgba(236,72,153,0.02))' },
-  { end: 14,  suffix: 'd', label: 'To Go Live',       sub: 'Discovery to deployment',  color: '#6ee7b7', gradient: 'linear-gradient(135deg,rgba(16,185,129,0.15),rgba(16,185,129,0.02))' },
+  { end: 100, suffix: '%', label: 'Automated',        sub: 'Zero manual tasks left',   color: '#7c3aed', gradient: 'linear-gradient(135deg,rgba(124,58,237,0.10),rgba(124,58,237,0.02))' },
+  { end: 3,   suffix: '×', label: 'Lead Response',    sub: 'Faster than before',       color: '#6d28d9', gradient: 'linear-gradient(135deg,rgba(109,40,217,0.10),rgba(109,40,217,0.02))' },
+  { end: 40,  suffix: '%', label: 'More Conversions', sub: 'Average client uplift',     color: '#9333ea', gradient: 'linear-gradient(135deg,rgba(147,51,234,0.10),rgba(147,51,234,0.02))' },
+  { end: 14,  suffix: 'd', label: 'To Go Live',       sub: 'Discovery to deployment',  color: '#7c3aed', gradient: 'linear-gradient(135deg,rgba(124,58,237,0.10),rgba(124,58,237,0.02))' },
 ];
 
 const values = [
-  { Icon: Target,   title: 'Results First',         body: 'ROI is the only metric that matters. We measure success by the time and money you save.', color: '#7c3aed' },
-  { Icon: Eye,      title: 'Radical Transparency',  body: 'You know exactly what we\'re building, how it works, and what it costs. No black boxes.', color: '#22d3ee' },
-  { Icon: Timer,    title: 'Speed to Value',        body: 'We move fast. From discovery call to live system in weeks — not months.',                  color: '#ec4899' },
-  { Icon: Scale,    title: 'Built to Scale',        body: 'Systems that grow with you — handling more volume without proportionally more cost.',      color: '#f59e0b' },
-  { Icon: TrendingUp, title: 'Custom, Always',      body: 'No off-the-shelf templates. Every system is engineered around your specific workflow.',    color: '#10b981' },
-  { Icon: Handshake, title: 'Long-term Partner',    body: 'We don\'t just deliver and disappear. We monitor, optimise, and evolve your systems.',     color: '#a78bfa' },
+  { Icon: Target,     title: 'Results First',        body: 'ROI is the only metric that matters. We measure success by the time and money you save.', color: '#7c3aed' },
+  { Icon: Eye,        title: 'Radical Transparency', body: 'You know exactly what we\'re building, how it works, and what it costs. No black boxes.', color: '#6d28d9' },
+  { Icon: Timer,      title: 'Speed to Value',       body: 'We move fast. From discovery call to live system in weeks — not months.',                  color: '#9333ea' },
+  { Icon: Scale,      title: 'Built to Scale',       body: 'Systems that grow with you — handling more volume without proportionally more cost.',      color: '#7c3aed' },
+  { Icon: TrendingUp, title: 'Custom, Always',       body: 'No off-the-shelf templates. Every system is engineered around your specific workflow.',    color: '#6d28d9' },
+  { Icon: Handshake,  title: 'Long-term Partner',    body: 'We don\'t just deliver and disappear. We monitor, optimise, and evolve your systems.',     color: '#9333ea' },
 ];
 
 function AnimatedNumber({ end, suffix, color }: { end: number; suffix: string; color: string }) {
@@ -33,7 +33,7 @@ function AnimatedNumber({ end, suffix, color }: { end: number; suffix: string; c
   }, [inView, end, val]);
 
   return (
-    <span ref={ref} className="font-black tabular-nums" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', color, textShadow: `0 0 30px ${color}60` }}>
+    <span ref={ref} className="font-black tabular-nums" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', color }}>
       <motion.span>{rounded}</motion.span>
       <span>{suffix}</span>
     </span>
@@ -73,7 +73,7 @@ export default function Stats() {
               transition={{ duration: 0.55, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
               className="relative rounded-3xl p-7 flex flex-col gap-2 text-center overflow-hidden group gradient-border"
-              style={{ background: 'rgba(7,4,26,0.85)', backdropFilter: 'blur(16px)' }}
+              style={{ background: 'rgba(255,255,255,0.95)', boxShadow: '0 4px 20px rgba(0,0,0,0.06)' }}
             >
               <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: s.gradient }} />
               <div className="relative z-10">
@@ -104,7 +104,7 @@ export default function Stats() {
                 transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ y: -6, transition: { duration: 0.25 } }}
                 className="group rounded-2xl p-6 flex flex-col gap-3 relative overflow-hidden"
-                style={{ background: 'rgba(7,4,26,0.7)', border: '1px solid rgba(124,58,237,0.1)', backdropFilter: 'blur(10px)' }}
+                style={{ background: 'rgba(255,255,255,0.92)', border: '1px solid rgba(124,58,237,0.12)', boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}
               >
                 <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-400" style={{ background: `radial-gradient(180px circle at 20% 50%, ${v.color}12, transparent)` }} />
                 <div className="relative z-10 w-11 h-11 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300" style={{ background: `${v.color}18`, color: v.color }}>

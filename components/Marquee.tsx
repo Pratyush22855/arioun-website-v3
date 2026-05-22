@@ -28,14 +28,14 @@ export default function Marquee() {
     <section
       className="relative overflow-hidden py-12"
       style={{
-        background: 'linear-gradient(180deg, rgba(4,2,14,0) 0%, rgba(7,4,26,0.8) 30%, rgba(7,4,26,0.8) 70%, rgba(4,2,14,0) 100%)',
-        borderTop: '1px solid rgba(124,58,237,0.08)',
-        borderBottom: '1px solid rgba(124,58,237,0.08)',
+        background: 'rgba(247,244,255,0.6)',
+        borderTop: '1px solid rgba(124,58,237,0.10)',
+        borderBottom: '1px solid rgba(124,58,237,0.10)',
       }}
     >
       {/* Fade edges */}
-      <div className="absolute top-0 left-0 h-full w-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, #04020e, transparent)' }} />
-      <div className="absolute top-0 right-0 h-full w-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, #04020e, transparent)' }} />
+      <div className="absolute top-0 left-0 h-full w-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, #F7F4FF, transparent)' }} />
+      <div className="absolute top-0 right-0 h-full w-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, #F7F4FF, transparent)' }} />
 
       <motion.p
         initial={{ opacity: 0 }}
@@ -54,11 +54,12 @@ export default function Marquee() {
               key={i}
               className="flex items-center gap-2.5 px-5 py-2.5 rounded-2xl shrink-0 select-none group transition-all duration-300 hover:scale-105"
               style={{
-                background: 'rgba(255,255,255,0.025)',
-                border: `1px solid ${item.color}20`,
+                background: 'rgba(255,255,255,0.9)',
+                border: '1px solid rgba(124,58,237,0.14)',
+                boxShadow: '0 1px 8px rgba(0,0,0,0.05)',
               }}
             >
-              <span className="w-2 h-2 rounded-full shrink-0" style={{ background: item.color, boxShadow: `0 0 6px ${item.color}80` }} />
+              <span className="w-2 h-2 rounded-full shrink-0" style={{ background: '#7c3aed', opacity: 0.7 }} />
               <span className="text-sm font-medium whitespace-nowrap" style={{ color: 'var(--text-2)' }}>
                 {item.name}
               </span>

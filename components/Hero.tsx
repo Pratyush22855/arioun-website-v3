@@ -335,7 +335,7 @@ export default function Hero() {
           style={{ border: '1px solid rgba(124,58,237,0.18)' }}
         >
           {stats.map((s, i) => (
-            <div key={i} className="flex flex-col items-center justify-center py-4 px-2 relative" style={{ background: 'rgba(4,2,14,0.8)' }}>
+            <div key={i} className="flex flex-col items-center justify-center py-4 px-2 relative" style={{ background: 'rgba(255,255,255,0.9)', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
               {i > 0 && <div className="absolute left-0 top-3 bottom-3 w-px" style={{ background: 'rgba(124,58,237,0.15)' }} />}
               <span className="text-xl font-black" style={{ color: s.color }}>{s.val}</span>
               <span className="text-xs mt-0.5" style={{ color: 'var(--text-3)' }}>{s.label}</span>

@@ -21,10 +21,10 @@ const steps = [
     title: 'Custom Build',
     body: 'Our team designs and builds your AI system — agents, automations, and integrations — tailored exactly to your workflow and tools. No templates, ever.',
     bullets: ['Custom AI agents', 'Workflow automation', 'Tool integrations', 'Live in ~14 days'],
-    color: '#22d3ee',
-    colorLight: '#67e8f9',
-    glow: 'rgba(34,211,238,0.22)',
-    gradient: 'linear-gradient(135deg, rgba(34,211,238,0.14) 0%, rgba(34,211,238,0.03) 100%)',
+    color: '#6d28d9',
+    colorLight: '#7c3aed',
+    glow: 'rgba(109,40,217,0.18)',
+    gradient: 'linear-gradient(135deg, rgba(109,40,217,0.10) 0%, rgba(109,40,217,0.02) 100%)',
   },
   {
     num: '03',
@@ -32,10 +32,10 @@ const steps = [
     title: 'Launch & Optimise',
     body: 'We deploy, test, and train your team. Then we monitor performance and continuously optimise based on real data — so results keep improving over time.',
     bullets: ['Live deployment', 'Team training', 'Performance monitoring', 'Ongoing optimisation'],
-    color: '#ec4899',
-    colorLight: '#f9a8d4',
-    glow: 'rgba(236,72,153,0.22)',
-    gradient: 'linear-gradient(135deg, rgba(236,72,153,0.14) 0%, rgba(236,72,153,0.03) 100%)',
+    color: '#9333ea',
+    colorLight: '#7c3aed',
+    glow: 'rgba(147,51,234,0.18)',
+    gradient: 'linear-gradient(135deg, rgba(147,51,234,0.10) 0%, rgba(147,51,234,0.02) 100%)',
   },
 ];
 
@@ -54,7 +54,7 @@ export default function HowItWorks() {
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-center mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: 'rgba(34,211,238,0.08)', border: '1px solid rgba(34,211,238,0.2)', color: 'var(--cyan)', letterSpacing: '0.12em' }}>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: 'rgba(124,58,237,0.08)', border: '1px solid rgba(124,58,237,0.2)', color: '#7c3aed', letterSpacing: '0.12em' }}>
             <Rocket size={11} />
             How It Works
           </div>
@@ -78,9 +78,9 @@ export default function HowItWorks() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.6 + i * 0.2, duration: 0.4 }}
                 className="flex items-center gap-1"
-                style={{ color: i === 0 ? 'var(--cyan)' : 'var(--pink)' }}
+                style={{ color: '#7c3aed' }}
               >
-                <div className="w-16 h-px" style={{ background: `linear-gradient(90deg, ${i === 0 ? 'var(--violet)' : 'var(--cyan)'}, ${i === 0 ? 'var(--cyan)' : 'var(--pink)'})` }} />
+                <div className="w-16 h-px" style={{ background: 'linear-gradient(90deg, #7c3aed, #9333ea)' }} />
                 <ArrowRight size={14} />
               </motion.div>
             ))}
@@ -116,7 +116,7 @@ export default function HowItWorks() {
                 <motion.div
                   whileHover={{ y: -8, transition: { duration: 0.3 } }}
                   className="flex-1 rounded-3xl p-7 flex flex-col gap-4 relative overflow-hidden group"
-                  style={{ background: 'rgba(7,4,26,0.8)', border: `1px solid ${step.color}18`, backdropFilter: 'blur(16px)' }}
+                  style={{ background: 'rgba(255,255,255,0.93)', border: '1px solid rgba(124,58,237,0.12)', boxShadow: '0 4px 20px rgba(0,0,0,0.06)' }}
                 >
                   {/* Glow on hover */}
                   <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none" style={{ background: `radial-gradient(240px circle at 50% 0%, ${step.glow}, transparent 70%)` }} />
