@@ -278,9 +278,9 @@ export default function Hero() {
           className="font-bold leading-[1.08] tracking-tight"
           style={{ fontSize: 'clamp(2.4rem, 5.5vw, 4.2rem)', color: 'var(--text-0)' }}
         >
-          <AnimatedLine text="Automate the work." baseDelay={0} />
+          <AnimatedLine text="The AI team your" baseDelay={0} />
           <div className="mt-1">
-            <AnimatedLine text="Scale the results." shimmer baseDelay={4} />
+            <AnimatedLine text="business deserves." shimmer baseDelay={4} />
           </div>
         </h1>
 
@@ -292,8 +292,8 @@ export default function Hero() {
           className="text-lg leading-relaxed max-w-xl"
           style={{ color: 'var(--text-2)' }}
         >
-          Custom AI systems that eliminate repetitive work, capture more leads,
-          and scale your business — without hiring more staff.
+          AI voice agents, intelligent chatbots, social media automation, and
+          custom AI solutions — built specifically for your business.
         </motion.p>
 
         {/* CTAs */}

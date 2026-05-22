@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 const footerLinks = {
   Company: ['Home', 'About', 'Contact'],
-  Services: ['AI Automation', 'AI Agents', 'CRM Integration', 'AI Outreach'],
+  Services: ['AI Voice Receptionist', 'Website + AI Chatbot', 'AI Social Media Agent', 'Custom AI Agent'],
   'Get Started': ['Book a Discovery Call', 'Send a Message'],
 };
 
@@ -13,10 +13,10 @@ const sectionMap: Record<string, string> = {
   Home: '#home',
   About: '#about',
   Contact: '#contact',
-  'AI Automation': '#services',
-  'AI Agents': '#services',
-  'CRM Integration': '#services',
-  'AI Outreach': '#services',
+  'AI Voice Receptionist': '#services',
+  'Website + AI Chatbot': '#services',
+  'AI Social Media Agent': '#services',
+  'Custom AI Agent': '#services',
   'Book a Discovery Call': '#contact',
   'Send a Message': '#contact',
 };
@@ -32,7 +32,7 @@ export default function Footer() {
       className="relative overflow-hidden"
       style={{
         borderTop: '1px solid rgba(124,58,237,0.1)',
-        background: 'linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 100%)',
+        background: 'linear-gradient(180deg, #F7F4FF 0%, #FFFFFF 100%)',
       }}
     >
       {/* Top glow line */}

@@ -74,10 +74,11 @@ export default function Navbar() {
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 lg:px-10"
         style={{
           height: '68px',
-          background: scrolled ? 'rgba(4,2,14,0.88)' : 'transparent',
-          backdropFilter: scrolled ? 'blur(24px)' : 'none',
+          background: scrolled ? 'rgba(255,255,255,0.92)' : 'rgba(250,250,250,0.6)',
+          backdropFilter: 'blur(20px)',
           borderBottom: scrolled ? '1px solid rgba(124,58,237,0.12)' : '1px solid transparent',
-          transition: 'background 0.4s, border-color 0.4s, backdrop-filter 0.4s',
+          boxShadow: scrolled ? '0 1px 20px rgba(0,0,0,0.06)' : 'none',
+          transition: 'background 0.4s, border-color 0.4s, box-shadow 0.4s',
         }}
       >
         {/* Logo */}
@@ -131,7 +132,7 @@ export default function Navbar() {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.25 }}
             className="fixed top-[68px] left-0 right-0 z-40 flex flex-col gap-1 p-4"
-            style={{ background: 'rgba(4,2,14,0.97)', backdropFilter: 'blur(24px)', borderBottom: '1px solid rgba(124,58,237,0.15)' }}
+            style={{ background: 'rgba(255,255,255,0.98)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(124,58,237,0.12)', boxShadow: '0 4px 24px rgba(0,0,0,0.06)' }}
           >
             {links.map((l, i) => (
               <motion.button
@@ -141,7 +142,7 @@ export default function Navbar() {
                 transition={{ delay: i * 0.05 }}
                 onClick={() => handleNav(l.href)}
                 className="text-left px-4 py-3 rounded-xl text-base font-medium"
-                style={{ color: 'var(--text-1)' }}
+                style={{ color: 'var(--text-0)' }}
               >
                 {l.label}
               </motion.button>

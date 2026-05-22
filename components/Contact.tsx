@@ -6,10 +6,10 @@ import { motion } from 'framer-motion';
 const ARIOUN_SERVER_URL = 'https://arioun-server-production.up.railway.app';
 
 const services = [
-  'AI Workflow Automation',
-  'Custom AI Agent',
-  'CRM & System Integration',
-  'AI-Powered Outreach',
+  'AI Voice Receptionist',
+  'AI-Powered Website + Chatbot',
+  'AI Social Media Agent',
+  'Custom Business AI Agent',
   'Not sure — need advice',
 ];
 
@@ -194,7 +194,7 @@ export default function Contact() {
             >
               <div
                 className="calendly-inline-widget w-full"
-                data-url="https://calendly.com/main-arioun/45min?background_color=06060f&text_color=f0eeff&primary_color=7c3aed"
+                data-url="https://calendly.com/main-arioun/45min?background_color=ffffff&text_color=0d0d18&primary_color=7c3aed"
               />
             </div>
           </motion.div>
@@ -286,8 +286,8 @@ export default function Contact() {
                       key={s}
                       className="flex items-center gap-3 px-4 py-2.5 rounded-xl cursor-pointer transition-colors"
                       style={{
-                        background: selected.includes(s) ? 'rgba(124,58,237,0.1)' : 'rgba(255,255,255,0.02)',
-                        border: selected.includes(s) ? '1px solid rgba(124,58,237,0.35)' : '1px solid rgba(255,255,255,0.06)',
+                        background: selected.includes(s) ? 'rgba(124,58,237,0.08)' : 'rgba(124,58,237,0.03)',
+                        border: selected.includes(s) ? '1px solid rgba(124,58,237,0.35)' : '1px solid rgba(124,58,237,0.12)',
                       }}
                     >
                       <div
