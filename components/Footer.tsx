@@ -51,7 +51,7 @@ export default function Footer() {
               className="flex items-center gap-2.5 w-fit"
             >
               <div className="relative w-8 h-8">
-                <Image src="/logo.png" alt="Arioun AI" fill className="object-contain" />
+                <Image src="/logo.png" alt="Arioun AI" fill className="object-contain" style={{ mixBlendMode: 'multiply' }} />
               </div>
               <span className="font-bold text-lg" style={{ color: 'var(--text-0)' }}>
                 arioun<span className="gradient-text">.ai</span>

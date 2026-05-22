@@ -19,7 +19,6 @@
   --cyan-light: #5b21b6;
   --cyan-glow: rgba(109, 40, 217, 0.2);
   --amber: #f59e0b;
-  --amber-glow: rgba(245, 158, 11, 0.3);
   --emerald: #10b981;
 
   /* ─── Primary (violet) ─── */
@@ -96,76 +95,18 @@ body {
   background-size: 60px 60px;
 }
 
-/* ── Aurora blobs ─── */
-@keyframes aurora-drift-1 {
-  0%   { transform: translate(0,    0)    scale(1);    opacity: 0.22; }
-  100% { transform: translate(90px, 70px) scale(1.18); opacity: 0.35; }
-}
-@keyframes aurora-drift-2 {
-  0%   { transform: translate(0,     0)    scale(1.1); opacity: 0.18; }
-  100% { transform: translate(-70px, 90px) scale(1);   opacity: 0.28; }
-}
-@keyframes aurora-drift-3 {
-  0%   { transform: translate(0,    0)     scale(1);   opacity: 0.14; }
-  100% { transform: translate(50px, -90px) scale(1.25);opacity: 0.24; }
-}
-@keyframes aurora-drift-4 {
-  0%   { transform: translate(0,    0)     scale(1);   opacity: 0.12; }
-  100% { transform: translate(-40px, 60px) scale(1.15);opacity: 0.2; }
-}
-
-/* ── Marquee ─── */
+/* ── Marquee — GPU composited, zero JS ─── */
 @keyframes marquee-scroll {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
-.marquee-track { animation: marquee-scroll 35s linear infinite; }
+.marquee-track {
+  animation: marquee-scroll 35s linear infinite;
+  will-change: transform;
+}
 .marquee-track:hover { animation-play-state: paused; }
 
-/* ── Floats ─── */
-@keyframes float  { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
-@keyframes float2 { 0%,100%{transform:translateY(0) rotate(2deg)} 50%{transform:translateY(-10px) rotate(-2deg)} }
-@keyframes float3 { 0%,100%{transform:translateY(0) rotate(-1deg)} 50%{transform:translateY(-18px) rotate(1deg)} }
-.float { animation: float 4s ease-in-out infinite; }
-.float2 { animation: float2 6s ease-in-out infinite; }
-.float3 { animation: float3 5s ease-in-out 1s infinite; }
-
-/* ── Button shadow (static, no animation) ─── */
-.btn-glow {
-  box-shadow: 0 4px 20px rgba(124,58,237,0.30);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
-}
-.btn-glow:hover {
-  box-shadow: 0 6px 28px rgba(124,58,237,0.40);
-}
-
-/* ── Spin ─── */
-@keyframes spin-slow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
-@keyframes spin-rev  { from{transform:rotate(360deg)} to{transform:rotate(0deg)} }
-.spin-slow { animation: spin-slow 25s linear infinite; }
-.spin-slow-rev { animation: spin-rev 20s linear infinite; }
-
-/* ── Shooting stars ─── */
-@keyframes shoot {
-  0%   { transform: translateX(0) translateY(0) scaleX(0); opacity: 0; }
-  10%  { opacity: 1; scaleX: 1; }
-  100% { transform: translateX(-600px) translateY(600px) scaleX(1); opacity: 0; }
-}
-.shooting-star {
-  position: absolute;
-  width: 120px;
-  height: 1.5px;
-  background: linear-gradient(90deg, transparent, rgba(167,139,250,0.9), rgba(34,211,238,0.4));
-  border-radius: 100%;
-  transform-origin: right center;
-  animation: shoot linear infinite;
-}
-
-/* ── Blink cursor ─── */
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-.cursor-blink { animation: blink 1s step-end infinite; }
-
-/* ── Shimmer ─── */
+/* ── Shimmer text ─── */
 @keyframes shimmer {
   0%   { background-position: -200% center; }
   100% { background-position: 200% center; }
@@ -185,28 +126,23 @@ body {
   animation: shimmer 5s linear infinite;
 }
 
-/* ── Gradient border card ─── */
-.gradient-border {
-  position: relative;
+/* ── Hero scroll hint — pure CSS bounce, no JS ─── */
+@keyframes scroll-hint {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(7px); }
 }
-.gradient-border::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, rgba(124,58,237,0.5), rgba(34,211,238,0.3), rgba(236,72,153,0.3));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
+.scroll-hint-bounce {
+  animation: scroll-hint 2s ease-in-out infinite;
 }
 
-/* ── Number counter ─── */
-@keyframes count-up {
-  from { opacity:0; transform: translateY(20px); }
-  to   { opacity:1; transform: translateY(0); }
+/* ── Button shadow (static) ─── */
+.btn-glow {
+  box-shadow: 0 4px 20px rgba(124,58,237,0.28);
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+.btn-glow:hover {
+  box-shadow: 0 6px 26px rgba(124,58,237,0.38);
+  transform: translateY(-1px);
 }
 
 /* ── Form inputs ─── */
@@ -218,78 +154,59 @@ body {
   padding: 0.75rem 1rem;
   color: var(--text-0);
   font-size: 0.9375rem;
-  transition: border-color 0.25s, box-shadow 0.25s;
+  transition: border-color 0.2s, box-shadow 0.2s;
   outline: none;
   font-family: inherit;
 }
 .form-input::placeholder { color: var(--text-3); }
 .form-input:focus {
   border-color: var(--violet);
-  box-shadow: 0 0 0 3px rgba(124,58,237,0.12), 0 0 16px rgba(124,58,237,0.06);
+  box-shadow: 0 0 0 3px rgba(124,58,237,0.10);
 }
 textarea.form-input { resize: vertical; min-height: 130px; }
 
-/* ── Calendly ─── */
-.calendly-inline-widget { min-width: 280px; height: 680px; }
-
 /* ─────────────────────────────────────────────────────────────
-   MOBILE PERFORMANCE — disable GPU-killing animations on phones
+   MOBILE PERFORMANCE
    ───────────────────────────────────────────────────────────── */
 @media (max-width: 767px) {
-  /* ── BIGGEST WIN (invisible to user): backdrop-filter creates a separate
-     GPU compositing layer per element. 15+ cards = 15+ layers = huge lag.
-     Removing this alone recovers ~20fps without changing any visual. ── */
+  /* backdrop-filter creates GPU compositing layers — remove on mobile */
   * {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
   }
 
-  /* Pulsing box-shadow is very expensive — keep a static glow instead */
+  /* Keep btn-glow static, no animation */
   .btn-glow {
     animation: none !important;
-    box-shadow: 0 0 20px rgba(124,58,237,0.5) !important;
+    box-shadow: 0 0 18px rgba(124,58,237,0.45) !important;
   }
 
-  /* Float animations combine translate+rotate — not GPU composited */
-  .float, .float2, .float3 {
-    animation: none !important;
-  }
-
-  /* Slow spinning rings way down instead of stopping (stays decorative) */
-  .spin-slow     { animation-duration: 60s !important; }
-  .spin-slow-rev { animation-duration: 50s !important; }
-
-  /* Stop aurora drift — blobs stay visible and look fine static */
-  @keyframes aurora-drift-1 { 0%,100% { transform: none; } }
-  @keyframes aurora-drift-2 { 0%,100% { transform: none; } }
-  @keyframes aurora-drift-3 { 0%,100% { transform: none; } }
-  @keyframes aurora-drift-4 { 0%,100% { transform: none; } }
-
-  /* text-shadow glow on stat numbers forces repaints each frame */
-  * { text-shadow: none !important; }
-
-  /* Section background blobs — reduce blur from 100px to 40px on mobile */
+  /* Smaller, cheaper aurora blobs */
   .aurora-bg {
-    filter: blur(40px) !important;
-    opacity: 0.5 !important;
-    width: 200px !important;
-    height: 200px !important;
+    filter: blur(30px) !important;
+    opacity: 0.45 !important;
+    width: 180px !important;
+    height: 180px !important;
   }
 
-  /* Calendly height reduced on small screens */
+  /* Calendly height on small screens */
   .calendly-inline-widget { height: 500px; }
 }
 
-/* GPU compositing hint for marquee */
-.marquee-track { will-change: transform; }
-
-/* ── Noise overlay ─── */
-.noise-overlay::after {
-  content:'';
-  position:absolute;
-  inset:0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
-  pointer-events:none;
-  z-index:1;
-  border-radius:inherit;
+/* ─────────────────────────────────────────────────────────────
+   REDUCED MOTION — respect user's OS preference
+   ───────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .marquee-track { animation: none; }
+  .shimmer-text {
+    background: linear-gradient(135deg, #7c3aed 0%, #9333ea 100%);
+    background-size: 100% auto;
+    animation: none;
+  }
+  .scroll-hint-bounce { animation: none; }
 }
