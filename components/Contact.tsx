@@ -1,9 +1,11 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
+import { useState, useEffect, useRef, FormEvent } from 'react';
 import { motion } from 'framer-motion';
+import { CalendarDays, CheckCircle2 } from 'lucide-react';
 
 const ARIOUN_SERVER_URL = 'https://arioun-server-production.up.railway.app';
+const GCAL_URL = 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ2yxi3SOSbN2PocGtPi-1s2Th5-TtdczJdGXZFMKSWCd7XZTY11KVBOsumtztiHFffvn2sMLV1N?gv=true';
 
 const services = [
   'AI Voice Receptionist',
@@ -45,6 +47,46 @@ const contactInfo = [
     href: null,
   },
 ];
+
+const callPerks = [
+  "We'll map out exactly where AI can save you the most time",
+  'No obligation — just an honest conversation about your business',
+  "Walk away with a clear action plan, even if you don't sign up",
+];
+
+function GoogleCalendarButton() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const link = document.createElement('link');
+    link.href = 'https://calendar.google.com/calendar/scheduling-button-script.css';
+    link.rel = 'stylesheet';
+    document.head.appendChild(link);
+
+    const script = document.createElement('script');
+    script.src = 'https://calendar.google.com/calendar/scheduling-button-script.js';
+    script.async = true;
+    script.onload = () => {
+      const cal = (window as unknown as { calendar?: { schedulingButton: { load: (opts: unknown) => void } } }).calendar;
+      if (cal && containerRef.current) {
+        cal.schedulingButton.load({
+          url: GCAL_URL,
+          color: '#7c3aed',
+          label: 'Book Your Free Call',
+          target: containerRef.current,
+        });
+      }
+    };
+    document.head.appendChild(script);
+
+    return () => {
+      if (document.head.contains(link)) document.head.removeChild(link);
+      if (document.head.contains(script)) document.head.removeChild(script);
+    };
+  }, []);
+
+  return <div ref={containerRef} />;
+}
 
 export default function Contact() {
   const [selected, setSelected] = useState<string[]>([]);
@@ -90,7 +132,7 @@ export default function Contact() {
       {/* Aurora */}
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse, rgba(124,58,237,0.1) 0%, transparent 70%)', filter: 'blur(80px)' }}
+        style={{ background: 'radial-gradient(ellipse, rgba(124,58,237,0.08) 0%, transparent 70%)', filter: 'blur(80px)' }}
         aria-hidden
       />
 
@@ -102,10 +144,10 @@ export default function Contact() {
           exit={{ opacity: 0, y: 20, x: '-50%' }}
           className="fixed bottom-8 left-1/2 z-50 px-6 py-3 rounded-2xl text-sm font-medium flex items-center gap-3"
           style={{
-            background: toast.ok ? 'rgba(16,185,129,0.15)' : 'rgba(239,68,68,0.15)',
-            border: `1px solid ${toast.ok ? 'rgba(16,185,129,0.4)' : 'rgba(239,68,68,0.4)'}`,
+            background: toast.ok ? 'rgba(16,185,129,0.12)' : 'rgba(239,68,68,0.12)',
+            border: `1px solid ${toast.ok ? 'rgba(16,185,129,0.35)' : 'rgba(239,68,68,0.35)'}`,
             backdropFilter: 'blur(20px)',
-            color: toast.ok ? '#10b981' : '#ef4444',
+            color: toast.ok ? '#059669' : '#dc2626',
           }}
         >
           {toast.ok ? '✓' : '⚠'} {toast.msg}
@@ -126,7 +168,7 @@ export default function Contact() {
             style={{
               background: 'rgba(124,58,237,0.08)',
               border: '1px solid rgba(124,58,237,0.2)',
-              color: 'var(--primary-light)',
+              color: '#7c3aed',
               letterSpacing: '0.1em',
             }}
           >
@@ -136,8 +178,8 @@ export default function Contact() {
             className="font-bold leading-tight mb-4"
             style={{ fontSize: 'clamp(2rem, 4.5vw, 3.5rem)', color: 'var(--text-0)' }}
           >
-            Let's talk about{' '}
-            <span className="gradient-text">your automation</span>
+            Let's build your{' '}
+            <span className="gradient-text">AI advantage</span>
           </h2>
           <p className="text-lg max-w-xl mx-auto" style={{ color: 'var(--text-2)' }}>
             Book a free 30-minute discovery call or send us a message. We respond within 24 hours.
@@ -145,7 +187,7 @@ export default function Contact() {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-8">
-          {/* Left: Calendly + info */}
+          {/* Left: Google Calendar booking + info */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -160,14 +202,14 @@ export default function Contact() {
                   key={i}
                   className="rounded-2xl p-4 flex flex-col gap-2"
                   style={{
-                    background: 'rgba(10,10,24,0.7)',
+                    background: 'rgba(255,255,255,0.9)',
                     border: '1px solid rgba(124,58,237,0.12)',
-                    backdropFilter: 'blur(8px)',
+                    boxShadow: '0 2px 12px rgba(0,0,0,0.05)',
                   }}
                 >
                   <div
                     className="w-8 h-8 rounded-xl flex items-center justify-center"
-                    style={{ background: 'rgba(124,58,237,0.12)', color: 'var(--primary-light)' }}
+                    style={{ background: 'rgba(124,58,237,0.1)', color: '#7c3aed' }}
                   >
                     {c.icon}
                   </div>
@@ -183,19 +225,64 @@ export default function Contact() {
               ))}
             </div>
 
-            {/* Calendly */}
+            {/* Google Calendar booking card */}
             <div
-              className="rounded-3xl overflow-hidden"
+              className="rounded-3xl p-8 flex flex-col gap-6 flex-1"
               style={{
-                background: 'rgba(10,10,24,0.7)',
-                border: '1px solid rgba(124,58,237,0.12)',
-                backdropFilter: 'blur(8px)',
+                background: 'rgba(255,255,255,0.92)',
+                border: '1px solid rgba(124,58,237,0.14)',
+                boxShadow: '0 4px 24px rgba(124,58,237,0.07)',
               }}
             >
-              <div
-                className="calendly-inline-widget w-full"
-                data-url="https://calendly.com/main-arioun/45min?background_color=ffffff&text_color=0d0d18&primary_color=7c3aed"
-              />
+              {/* Icon + title */}
+              <div className="flex items-center gap-3">
+                <div
+                  className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0"
+                  style={{ background: 'rgba(124,58,237,0.1)', color: '#7c3aed' }}
+                >
+                  <CalendarDays size={22} />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold" style={{ color: 'var(--text-0)' }}>
+                    Book a Free Discovery Call
+                  </h3>
+                  <p className="text-sm" style={{ color: 'var(--text-2)' }}>
+                    30 minutes · No commitment
+                  </p>
+                </div>
+              </div>
+
+              {/* What you get */}
+              <ul className="flex flex-col gap-3">
+                {callPerks.map((perk, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm" style={{ color: 'var(--text-1)' }}>
+                    <CheckCircle2 size={16} className="mt-0.5 shrink-0" style={{ color: '#7c3aed' }} />
+                    {perk}
+                  </li>
+                ))}
+              </ul>
+
+              {/* Google Calendar scheduling button */}
+              <div className="flex flex-col items-start gap-3">
+                <p className="text-xs font-medium" style={{ color: 'var(--text-3)' }}>
+                  Pick a time that works for you:
+                </p>
+                <GoogleCalendarButton />
+              </div>
+
+              {/* Fallback direct link */}
+              <p className="text-xs" style={{ color: 'var(--text-3)' }}>
+                Or open directly:{' '}
+                <a
+                  href="https://calendar.app.google/Px64DCjtMZqAYLQy7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline"
+                  style={{ color: '#7c3aed' }}
+                >
+                  calendar.app.google/Px64DCjtMZqAYLQy7
+                </a>
+              </p>
             </div>
           </motion.div>
 
@@ -210,9 +297,9 @@ export default function Contact() {
               onSubmit={handleSubmit}
               className="rounded-3xl p-8 flex flex-col gap-5"
               style={{
-                background: 'rgba(10,10,24,0.7)',
-                border: '1px solid rgba(124,58,237,0.15)',
-                backdropFilter: 'blur(12px)',
+                background: 'rgba(255,255,255,0.92)',
+                border: '1px solid rgba(124,58,237,0.14)',
+                boxShadow: '0 4px 24px rgba(124,58,237,0.07)',
               }}
             >
               <h3 className="text-xl font-bold" style={{ color: 'var(--text-0)' }}>
@@ -337,7 +424,7 @@ export default function Contact() {
                 whileTap={{ scale: loading ? 1 : 0.98 }}
                 className="btn-glow w-full py-4 rounded-2xl font-semibold text-base text-white transition-opacity"
                 style={{
-                  background: 'linear-gradient(135deg, var(--primary) 0%, #5b21b6 100%)',
+                  background: 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)',
                   opacity: loading ? 0.7 : 1,
                 }}
               >

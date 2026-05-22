@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect, MouseEvent } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, Globe, Share2, Bot, CheckCircle } from 'lucide-react';
+import { Phone, Globe, Share2, Bot, CheckCircle, Zap } from 'lucide-react';
 
 const services = [
   {
@@ -205,7 +205,7 @@ export default function Services() {
             What We Build
           </div>
           <h2 className="font-bold leading-tight mb-4" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.5rem)', color: 'var(--text-0)' }}>
-            AI systems that work <span className="gradient-text">while you sleep</span>
+            The AI team your business <span className="gradient-text">deserves</span>
           </h2>
           <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--text-2)' }}>
             Every solution is custom-built for your business — no templates, no generic software.
