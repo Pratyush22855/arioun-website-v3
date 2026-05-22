@@ -114,7 +114,6 @@ export default function HowItWorks() {
 
                 {/* Card */}
                 <motion.div
-                  whileHover={{ y: -8, transition: { duration: 0.3 } }}
                   className="flex-1 rounded-3xl p-7 flex flex-col gap-4 relative overflow-hidden group"
                   style={{ background: 'rgba(255,255,255,0.93)', border: '1px solid rgba(124,58,237,0.12)', boxShadow: '0 4px 20px rgba(0,0,0,0.06)' }}
                 >
@@ -142,10 +141,10 @@ export default function HowItWorks() {
 
         {/* CTA */}
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.5 }} className="text-center mt-16">
-          <motion.button whileHover={{ scale: 1.05, y: -3 }} whileTap={{ scale: 0.97 }} onClick={() => handleNav('#contact')} className="btn-glow inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl font-semibold text-base text-white" style={{ background: 'linear-gradient(135deg, var(--violet) 0%, var(--pink) 100%)' }}>
+          <button onClick={() => handleNav('#contact')} className="btn-glow inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl font-semibold text-base text-white" style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)' }}>
             Start the Process
             <ArrowRight size={16} />
-          </motion.button>
+          </button>
         </motion.div>
       </div>
     </section>

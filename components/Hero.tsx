@@ -4,37 +4,6 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { PhoneCall, ArrowRight, Sparkles } from 'lucide-react';
 
-/* ── Word-by-word spring drop ─── */
-const wordVariants = {
-  hidden:  { opacity: 0, y: 40, rotateX: -30 },
-  visible: (i: number) => ({
-    opacity: 1, y: 0, rotateX: 0,
-    transition: { delay: i * 0.1, type: 'spring' as const, stiffness: 100, damping: 16 },
-  }),
-};
-
-function AnimatedLine({ text, shimmer = false, baseDelay = 0 }: {
-  text: string; shimmer?: boolean; baseDelay?: number;
-}) {
-  return (
-    <span className="flex flex-wrap justify-center gap-x-[0.3em]" style={{ perspective: '600px' }}>
-      {text.split(' ').map((word, i) => (
-        <motion.span
-          key={i}
-          custom={baseDelay + i}
-          variants={wordVariants}
-          initial="hidden"
-          animate="visible"
-          className={shimmer ? 'shimmer-text' : ''}
-          style={{ display: 'inline-block', willChange: 'transform, opacity' }}
-        >
-          {word}
-        </motion.span>
-      ))}
-    </span>
-  );
-}
-
 const stats = [
   { val: '100%', label: 'Automated',    color: '#7c3aed' },
   { val: '3×',   label: 'Faster Leads', color: '#6d28d9' },
@@ -63,70 +32,45 @@ export default function Hero() {
       className="relative flex flex-col items-center justify-center text-center overflow-hidden"
       style={{ minHeight: '100vh', paddingTop: '80px', paddingBottom: '60px', background: '#FAFAFA' }}
     >
-      {/* ── Background gradient blobs ── */}
+      {/* Static gradient blobs — no animation, no canvas */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
-        {/* Top-left large purple blob */}
         <div className="absolute rounded-full" style={{
-          width: isMobile ? '380px' : '700px',
-          height: isMobile ? '380px' : '700px',
-          background: 'radial-gradient(circle, rgba(124,58,237,0.13) 0%, rgba(124,58,237,0.05) 50%, transparent 70%)',
+          width: isMobile ? '380px' : '680px',
+          height: isMobile ? '380px' : '680px',
+          background: 'radial-gradient(circle, rgba(124,58,237,0.11) 0%, rgba(124,58,237,0.04) 50%, transparent 70%)',
           filter: 'blur(70px)',
-          top: '-180px',
-          left: isMobile ? '-120px' : '-200px',
-          animation: isMobile ? 'none' : 'aurora-drift-1 14s ease-in-out infinite alternate',
+          top: '-160px', left: isMobile ? '-100px' : '-180px',
         }} />
-
-        {/* Top-right medium blob */}
         <div className="absolute rounded-full" style={{
-          width: isMobile ? '280px' : '500px',
-          height: isMobile ? '280px' : '500px',
-          background: 'radial-gradient(circle, rgba(147,51,234,0.10) 0%, rgba(147,51,234,0.04) 50%, transparent 70%)',
+          width: isMobile ? '260px' : '480px',
+          height: isMobile ? '260px' : '480px',
+          background: 'radial-gradient(circle, rgba(147,51,234,0.09) 0%, transparent 65%)',
           filter: 'blur(60px)',
-          top: '-60px',
-          right: isMobile ? '-100px' : '-140px',
-          animation: isMobile ? 'none' : 'aurora-drift-2 18s ease-in-out infinite alternate',
+          top: '-40px', right: isMobile ? '-80px' : '-120px',
         }} />
-
-        {/* Center soft glow — gives the text a lifted feel */}
         <div className="absolute rounded-full" style={{
-          width: isMobile ? '300px' : '560px',
-          height: isMobile ? '200px' : '380px',
-          background: 'radial-gradient(ellipse, rgba(124,58,237,0.08) 0%, transparent 65%)',
+          width: isMobile ? '280px' : '520px',
+          height: isMobile ? '180px' : '360px',
+          background: 'radial-gradient(ellipse, rgba(124,58,237,0.07) 0%, transparent 65%)',
           filter: 'blur(50px)',
-          top: '15%',
-          left: '50%',
-          transform: 'translateX(-50%)',
+          top: '20%', left: '50%', transform: 'translateX(-50%)',
         }} />
-
-        {/* Bottom-right accent */}
-        {!isMobile && (
-          <div className="absolute rounded-full" style={{
-            width: '420px',
-            height: '420px',
-            background: 'radial-gradient(circle, rgba(109,40,217,0.07) 0%, transparent 65%)',
-            filter: 'blur(80px)',
-            bottom: '-80px',
-            right: '5%',
-            animation: 'aurora-drift-3 22s ease-in-out infinite alternate',
-          }} />
-        )}
-
-        {/* Subtle dot grid */}
+        {/* Dot grid */}
         <div className="absolute inset-0" style={{
-          backgroundImage: 'radial-gradient(circle, rgba(124,58,237,0.18) 1px, transparent 1px)',
+          backgroundImage: 'radial-gradient(circle, rgba(124,58,237,0.15) 1px, transparent 1px)',
           backgroundSize: '36px 36px',
-          opacity: 0.35,
+          opacity: 0.4,
         }} />
       </div>
 
-      {/* ── CONTENT ── */}
+      {/* Content */}
       <div className="relative z-10 flex flex-col items-center gap-8 max-w-3xl mx-auto px-6">
 
-        {/* Eyebrow badge */}
+        {/* Eyebrow */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          transition={{ duration: 0.5 }}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold"
           style={{ background: 'rgba(124,58,237,0.08)', border: '1px solid rgba(124,58,237,0.22)', color: '#7c3aed' }}
         >
@@ -134,22 +78,23 @@ export default function Hero() {
           AI Infrastructure for Local Business
         </motion.div>
 
-        {/* Headline */}
-        <h1
-          className="font-bold leading-[1.08] tracking-tight"
+        {/* Headline — simple fade in, no word-by-word */}
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+          className="font-bold leading-[1.1] tracking-tight"
           style={{ fontSize: 'clamp(2.4rem, 5.5vw, 4.2rem)', color: 'var(--text-0)' }}
         >
-          <AnimatedLine text="The AI team your" baseDelay={0} />
-          <div className="mt-1">
-            <AnimatedLine text="business deserves." shimmer baseDelay={4} />
-          </div>
-        </h1>
+          The AI team your business{' '}
+          <span className="shimmer-text">deserves.</span>
+        </motion.h1>
 
         {/* Subheadline */}
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
           className="text-lg leading-relaxed max-w-xl"
           style={{ color: 'var(--text-2)' }}
         >
@@ -161,25 +106,21 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.2 }}
+          transition={{ duration: 0.5, delay: 0.45 }}
           className="flex flex-col sm:flex-row gap-3"
         >
-          <motion.button
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.97 }}
+          <button
             onClick={() => handleNav('#contact')}
-            className="btn-glow inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl font-semibold text-base text-white"
+            className="btn-glow inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl font-semibold text-base text-white"
             style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)' }}
           >
             <PhoneCall size={16} />
             Book a Free Discovery Call
-          </motion.button>
+          </button>
 
-          <motion.button
-            whileHover={{ scale: 1.04, y: -2 }}
-            whileTap={{ scale: 0.97 }}
+          <button
             onClick={() => handleNav('#services')}
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl font-semibold text-base"
+            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl font-semibold text-base transition-colors duration-200"
             style={{
               background: 'rgba(124,58,237,0.06)',
               border: '1px solid rgba(124,58,237,0.22)',
@@ -188,16 +129,16 @@ export default function Hero() {
           >
             See What We Build
             <ArrowRight size={15} />
-          </motion.button>
+          </button>
         </motion.div>
 
         {/* Stats strip */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.4 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
           className="grid grid-cols-4 w-full max-w-lg rounded-2xl overflow-hidden"
-          style={{ border: '1px solid rgba(124,58,237,0.16)', boxShadow: '0 4px 24px rgba(124,58,237,0.08)' }}
+          style={{ border: '1px solid rgba(124,58,237,0.14)', boxShadow: '0 4px 20px rgba(124,58,237,0.07)' }}
         >
           {stats.map((s, i) => (
             <div
@@ -217,16 +158,16 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.8 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        transition={{ delay: 0.9 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
         <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+          animate={{ y: [0, 7, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
           className="w-5 h-8 rounded-full border-2 flex items-start justify-center pt-1.5"
-          style={{ borderColor: 'rgba(124,58,237,0.25)' }}
+          style={{ borderColor: 'rgba(124,58,237,0.22)' }}
         >
-          <div className="w-1 h-2 rounded-full" style={{ background: 'rgba(124,58,237,0.5)' }} />
+          <div className="w-1 h-2 rounded-full" style={{ background: 'rgba(124,58,237,0.45)' }} />
         </motion.div>
       </motion.div>
     </section>

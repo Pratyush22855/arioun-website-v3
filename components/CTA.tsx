@@ -25,15 +25,14 @@ export default function CTA() {
           <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 70% 100%, rgba(236,72,153,0.18) 0%, transparent 55%)' }} aria-hidden />
           <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(34,211,238,0.06) 0%, transparent 60%)' }} aria-hidden />
 
-          {/* Spinning decorative rings */}
+          {/* Static decorative rings */}
           {[520, 380, 260].map((size, i) => (
             <div
               key={i}
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border pointer-events-none"
               style={{
                 width: size, height: size,
-                borderColor: i === 0 ? 'rgba(124,58,237,0.08)' : i === 1 ? 'rgba(236,72,153,0.07)' : 'rgba(34,211,238,0.06)',
-                animation: `${i % 2 === 0 ? 'spin-slow' : 'spin-rev'} ${20 + i * 5}s linear infinite`,
+                borderColor: 'rgba(124,58,237,0.08)',
               }}
               aria-hidden
             />
@@ -87,26 +86,22 @@ export default function CTA() {
               transition={{ delay: 0.25 }}
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
-              <motion.button
-                whileHover={{ scale: 1.06, y: -4 }}
-                whileTap={{ scale: 0.97 }}
+              <button
                 onClick={() => handleNav('#contact')}
                 className="btn-glow inline-flex items-center justify-center gap-2.5 px-10 py-4 rounded-2xl font-bold text-base text-white"
-                style={{ background: 'linear-gradient(135deg, var(--violet) 0%, #5b21b6 40%, var(--pink) 100%)' }}
+                style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)' }}
               >
                 <Phone size={16} />
                 Book Free Discovery Call
-              </motion.button>
+              </button>
 
-              <motion.button
-                whileHover={{ scale: 1.04, y: -2 }}
-                whileTap={{ scale: 0.97 }}
+              <button
                 onClick={() => handleNav('#services')}
-                className="gradient-border inline-flex items-center justify-center gap-2.5 px-10 py-4 rounded-2xl font-semibold text-base"
-                style={{ background: 'rgba(124,58,237,0.06)', color: 'var(--text-0)' }}
+                className="inline-flex items-center justify-center gap-2.5 px-10 py-4 rounded-2xl font-semibold text-base transition-colors duration-200"
+                style={{ background: 'rgba(124,58,237,0.08)', border: '1px solid rgba(124,58,237,0.22)', color: '#7c3aed' }}
               >
                 See All Services <ArrowRight size={15} />
-              </motion.button>
+              </button>
             </motion.div>
 
             <motion.p

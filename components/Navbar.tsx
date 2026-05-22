@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, MouseEvent } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { Phone } from 'lucide-react';
@@ -12,40 +12,6 @@ const links = [
   { label: 'About',        href: '#about' },
   { label: 'Contact',      href: '#contact' },
 ];
-
-/* ── Magnetic button ─── */
-function MagneticButton({ onClick }: { onClick: () => void }) {
-  const ref = useRef<HTMLButtonElement>(null);
-  const [pos, setPos] = useState({ x: 0, y: 0 });
-
-  const handleMove = (e: MouseEvent<HTMLButtonElement>) => {
-    const btn = ref.current;
-    if (!btn) return;
-    const rect = btn.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    const dx = (e.clientX - cx) * 0.28;
-    const dy = (e.clientY - cy) * 0.28;
-    setPos({ x: dx, y: dy });
-  };
-
-  return (
-    <motion.button
-      ref={ref}
-      onMouseMove={handleMove}
-      onMouseLeave={() => setPos({ x: 0, y: 0 })}
-      onClick={onClick}
-      animate={{ x: pos.x, y: pos.y }}
-      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-      whileTap={{ scale: 0.95 }}
-      className="btn-glow flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white"
-      style={{ background: 'linear-gradient(135deg, var(--violet) 0%, var(--pink) 100%)' }}
-    >
-      <Phone size={13} />
-      Book a Free Call
-    </motion.button>
-  );
-}
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -110,10 +76,15 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Magnetic CTA */}
-        <div className="hidden md:block">
-          <MagneticButton onClick={() => handleNav('#contact')} />
-        </div>
+        {/* CTA */}
+        <button
+          onClick={() => handleNav('#contact')}
+          className="hidden md:flex btn-glow items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white"
+          style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)' }}
+        >
+          <Phone size={13} />
+          Book a Free Call
+        </button>
 
         {/* Hamburger */}
         <button className="md:hidden flex flex-col gap-1.5 p-2" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle menu">

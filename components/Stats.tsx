@@ -1,14 +1,13 @@
 'use client';
 
-import { motion, useInView, useMotionValue, useTransform, animate } from 'framer-motion';
-import { useEffect, useRef } from 'react';
-import { Target, Eye, Timer, TrendingUp, Users, Clock, Scale, Handshake } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Target, Eye, Timer, TrendingUp, Scale, Handshake } from 'lucide-react';
 
 const stats = [
-  { end: 100, suffix: '%', label: 'Automated',        sub: 'Zero manual tasks left',   color: '#7c3aed', gradient: 'linear-gradient(135deg,rgba(124,58,237,0.10),rgba(124,58,237,0.02))' },
-  { end: 3,   suffix: '×', label: 'Lead Response',    sub: 'Faster than before',       color: '#6d28d9', gradient: 'linear-gradient(135deg,rgba(109,40,217,0.10),rgba(109,40,217,0.02))' },
-  { end: 40,  suffix: '%', label: 'More Conversions', sub: 'Average client uplift',     color: '#9333ea', gradient: 'linear-gradient(135deg,rgba(147,51,234,0.10),rgba(147,51,234,0.02))' },
-  { end: 14,  suffix: 'd', label: 'To Go Live',       sub: 'Discovery to deployment',  color: '#7c3aed', gradient: 'linear-gradient(135deg,rgba(124,58,237,0.10),rgba(124,58,237,0.02))' },
+  { display: '100%', label: 'Automated',        sub: 'Zero manual tasks left',   color: '#7c3aed', gradient: 'linear-gradient(135deg,rgba(124,58,237,0.10),rgba(124,58,237,0.02))' },
+  { display: '3×',   label: 'Lead Response',    sub: 'Faster than before',       color: '#6d28d9', gradient: 'linear-gradient(135deg,rgba(109,40,217,0.10),rgba(109,40,217,0.02))' },
+  { display: '40%',  label: 'More Conversions', sub: 'Average client uplift',     color: '#9333ea', gradient: 'linear-gradient(135deg,rgba(147,51,234,0.10),rgba(147,51,234,0.02))' },
+  { display: '14d',  label: 'To Go Live',       sub: 'Discovery to deployment',  color: '#7c3aed', gradient: 'linear-gradient(135deg,rgba(124,58,237,0.10),rgba(124,58,237,0.02))' },
 ];
 
 const values = [
@@ -20,22 +19,10 @@ const values = [
   { Icon: Handshake,  title: 'Long-term Partner',    body: 'We don\'t just deliver and disappear. We monitor, optimise, and evolve your systems.',     color: '#9333ea' },
 ];
 
-function AnimatedNumber({ end, suffix, color }: { end: number; suffix: string; color: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
-  const val = useMotionValue(0);
-  const rounded = useTransform(val, (v) => Math.round(v));
-
-  useEffect(() => {
-    if (!inView) return;
-    const ctrl = animate(val, end, { duration: 1.8, ease: 'easeOut' });
-    return ctrl.stop;
-  }, [inView, end, val]);
-
+function StatNumber({ display, color }: { display: string; color: string }) {
   return (
-    <span ref={ref} className="font-black tabular-nums" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', color }}>
-      <motion.span>{rounded}</motion.span>
-      <span>{suffix}</span>
+    <span className="font-black tabular-nums" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', color }}>
+      {display}
     </span>
   );
 }
@@ -67,20 +54,16 @@ export default function Stats() {
           {stats.map((s, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 40, scale: 0.9 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.55, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ y: -8, transition: { duration: 0.3 } }}
-              className="relative rounded-3xl p-7 flex flex-col gap-2 text-center overflow-hidden group gradient-border"
-              style={{ background: 'rgba(255,255,255,0.95)', boxShadow: '0 4px 20px rgba(0,0,0,0.06)' }}
+              transition={{ duration: 0.45, delay: i * 0.08 }}
+              className="rounded-3xl p-7 flex flex-col gap-2 text-center"
+              style={{ background: 'rgba(255,255,255,0.95)', border: '1px solid rgba(124,58,237,0.10)', boxShadow: '0 4px 20px rgba(0,0,0,0.06)' }}
             >
-              <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: s.gradient }} />
-              <div className="relative z-10">
-                <AnimatedNumber end={s.end} suffix={s.suffix} color={s.color} />
-                <div className="font-semibold text-sm mt-1" style={{ color: 'var(--text-0)' }}>{s.label}</div>
-                <div className="text-xs mt-0.5" style={{ color: 'var(--text-3)' }}>{s.sub}</div>
-              </div>
+              <StatNumber display={s.display} color={s.color} />
+              <div className="font-semibold text-sm mt-1" style={{ color: 'var(--text-0)' }}>{s.label}</div>
+              <div className="text-xs mt-0.5" style={{ color: 'var(--text-3)' }}>{s.sub}</div>
             </motion.div>
           ))}
         </div>
@@ -102,16 +85,14 @@ export default function Stats() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: -6, transition: { duration: 0.25 } }}
-                className="group rounded-2xl p-6 flex flex-col gap-3 relative overflow-hidden"
+                className="rounded-2xl p-6 flex flex-col gap-3"
                 style={{ background: 'rgba(255,255,255,0.92)', border: '1px solid rgba(124,58,237,0.12)', boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}
               >
-                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-400" style={{ background: `radial-gradient(180px circle at 20% 50%, ${v.color}12, transparent)` }} />
-                <div className="relative z-10 w-11 h-11 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300" style={{ background: `${v.color}18`, color: v.color }}>
+                <div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ background: `${v.color}14`, color: v.color }}>
                   <Icon size={20} strokeWidth={1.5} />
                 </div>
-                <div className="relative z-10 font-bold" style={{ color: 'var(--text-0)' }}>{v.title}</div>
-                <p className="relative z-10 text-sm leading-relaxed" style={{ color: 'var(--text-2)' }}>{v.body}</p>
+                <div className="font-bold" style={{ color: 'var(--text-0)' }}>{v.title}</div>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--text-2)' }}>{v.body}</p>
               </motion.div>
             );
           })}
