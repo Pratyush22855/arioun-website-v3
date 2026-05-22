@@ -40,7 +40,7 @@ export default function Navbar() {
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 lg:px-10"
         style={{
           height: '68px',
-          background: scrolled ? 'rgba(237,228,255,0.97)' : 'rgba(237,228,255,0.75)',
+          background: scrolled ? 'rgba(255,255,255,0.92)' : 'rgba(250,250,250,0.6)',
           backdropFilter: 'blur(20px)',
           borderBottom: scrolled ? '1px solid rgba(124,58,237,0.12)' : '1px solid transparent',
           boxShadow: scrolled ? '0 1px 20px rgba(0,0,0,0.06)' : 'none',
