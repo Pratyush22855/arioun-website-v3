@@ -1,48 +1,40 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Phone, Globe, Share2, Bot, CheckCircle, Zap } from 'lucide-react';
+import { Phone, Globe, Share2, Bot, Zap, ArrowRight } from 'lucide-react';
 
 const services = [
   {
     tag: 'Most Popular',
+    featured: true,
     Icon: Phone,
     title: 'AI Voice Receptionist',
-    body: 'A 24/7 AI phone agent that answers every call, qualifies leads, books appointments, and handles FAQs — in English and Spanish. Never miss a customer again.',
-    features: ['24/7 inbound call handling', 'Lead qualification & scoring', 'Appointment booking via calendar', 'Bilingual: English + Spanish'],
-    color: '#7c3aed',
-    gradient: 'linear-gradient(135deg, rgba(124,58,237,0.08) 0%, rgba(124,58,237,0.02) 100%)',
-    span: 'lg:col-span-2',
+    body: 'An intelligent AI agent that answers every inbound call 24/7 — qualifying leads, booking appointments, handling FAQs, and following up in English or Spanish. Never miss a call again.',
+    bullets: ['24/7 inbound call handling', 'Lead qualification & appointment booking', 'Bilingual (English + Spanish)', 'Instant follow-up via SMS & email'],
   },
   {
     tag: null,
+    featured: false,
     Icon: Globe,
     title: 'AI-Powered Website + Chatbot',
-    body: 'A custom-designed website with an embedded AI chatbot that captures leads, answers questions, and integrates with your CRM — working around the clock.',
-    features: ['Custom website design', 'Embedded AI chatbot', 'CRM & calendar integration', 'Lead capture & follow-up'],
-    color: '#9333ea',
-    gradient: 'linear-gradient(135deg, rgba(147,51,234,0.08) 0%, rgba(147,51,234,0.02) 100%)',
-    span: 'lg:col-span-2',
+    body: "We design and build your professional website with a built-in AI chatbot that captures leads, answers questions, and connects to your CRM — converting visitors automatically.",
+    bullets: ['Custom website design & development', 'AI chatbot for lead capture & support', 'CRM & calendar integration', 'Mobile-first, fast & fully managed'],
   },
   {
     tag: null,
+    featured: false,
     Icon: Share2,
     title: 'AI Social Media Agent',
-    body: 'An AI agent that creates content, schedules posts, manages comments, and replies to DMs across all your platforms — keeping your brand active without the effort.',
-    features: ['Content creation & scheduling', 'Comment & DM management', 'Multi-platform (IG, FB, TikTok)', 'Brand-consistent tone & voice'],
-    color: '#7c3aed',
-    gradient: 'linear-gradient(135deg, rgba(124,58,237,0.07) 0%, rgba(124,58,237,0.02) 100%)',
-    span: 'lg:col-span-2',
+    body: "Your brand, active 24/7 across every platform. Our AI agent creates content, writes captions, schedules posts, and manages engagement — on complete autopilot.",
+    bullets: ['AI content creation & captions', 'Auto-scheduling across platforms', 'Comment & DM management', 'Audience growth on autopilot'],
   },
   {
     tag: null,
+    featured: false,
     Icon: Bot,
     title: 'Custom Business AI Agent',
-    body: 'A bespoke AI agent trained on your specific business data, workflows, and processes — automating the tasks unique to how your business operates.',
-    features: ['Trained on your business data', 'Custom workflow automation', 'Internal knowledge assistant', 'Fully tailored to your processes'],
-    color: '#9333ea',
-    gradient: 'linear-gradient(135deg, rgba(147,51,234,0.07) 0%, rgba(147,51,234,0.02) 100%)',
-    span: 'lg:col-span-2',
+    body: "A fully custom AI agent trained on your data, your workflows, and your business. Whether internal automation or customer-facing intelligence — built exactly to spec.",
+    bullets: ['Trained on your business knowledge', 'Automates any repetitive workflow', 'Integrates with your existing tools', 'Scales as your business grows'],
   },
 ];
 
@@ -50,50 +42,71 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
   const { Icon } = service;
   return (
     <motion.div
-      initial={{ opacity: 0, y: 28 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.5, delay: index * 0.08 }}
-      className={`group rounded-3xl p-7 flex flex-col gap-5 cursor-default transition-shadow duration-300 hover:shadow-lg ${service.span}`}
+      className="relative rounded-2xl p-7 flex flex-col gap-4 overflow-hidden transition-all duration-250 hover:-translate-y-[3px] group"
       style={{
-        background: 'rgba(255,255,255,0.93)',
-        border: '1px solid rgba(124,58,237,0.10)',
-        boxShadow: '0 2px 16px rgba(0,0,0,0.05)',
+        gridColumn: 'span 3',
+        background: service.featured
+          ? 'linear-gradient(135deg, #F0EAFF 0%, rgba(124,58,237,0.08) 100%)'
+          : '#FFFFFF',
+        border: service.featured
+          ? '1px solid rgba(124,58,237,0.35)'
+          : '1px solid rgba(124,58,237,0.16)',
+        boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
       }}
     >
-      {/* Icon + tag */}
-      <div className="flex items-start justify-between">
+      {service.featured && (
         <div
-          className="w-14 h-14 rounded-2xl flex items-center justify-center transition-transform duration-200 group-hover:scale-105"
-          style={{ background: service.gradient, color: service.color }}
-        >
-          <Icon size={26} strokeWidth={1.5} />
-        </div>
-        {service.tag && (
-          <span
-            className="text-xs font-bold px-3 py-1.5 rounded-full"
-            style={{ background: `${service.color}15`, color: service.color, border: `1px solid ${service.color}30` }}
-          >
-            {service.tag}
-          </span>
-        )}
+          className="absolute top-0 left-[20%] right-[20%] h-px pointer-events-none"
+          style={{ background: 'linear-gradient(90deg, transparent, #7c3aed, transparent)' }}
+        />
+      )}
+      <div
+        className="absolute bottom-[-40px] right-[-40px] w-[200px] h-[200px] rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 70%)' }}
+      />
+
+      <div
+        className="w-12 h-12 rounded-xl flex items-center justify-center relative z-10 transition-transform duration-200 group-hover:scale-105"
+        style={{ background: 'rgba(124,58,237,0.07)', border: '1px solid rgba(124,58,237,0.18)', color: '#7c3aed' }}
+      >
+        <Icon size={22} strokeWidth={1.75} />
       </div>
 
-      {/* Title + body */}
-      <div>
-        <h3 className="text-xl font-bold mb-2.5" style={{ color: 'var(--text-0)' }}>{service.title}</h3>
-        <p className="text-sm leading-relaxed" style={{ color: 'var(--text-2)' }}>{service.body}</p>
+      {service.tag && (
+        <span className="relative z-10 text-[0.68rem] font-bold tracking-[0.14em] uppercase" style={{ color: '#7c3aed' }}>
+          {service.tag}
+        </span>
+      )}
+
+      <div className="relative z-10 flex-1">
+        <h3 className="font-semibold text-xl mb-3 leading-snug" style={{ color: '#0D0D18' }}>{service.title}</h3>
+        <p className="text-sm leading-relaxed" style={{ color: '#4A4868' }}>{service.body}</p>
       </div>
 
-      {/* Features */}
-      <ul className="flex flex-col gap-2">
-        {service.features.map((f, i) => (
-          <li key={i} className="flex items-center gap-2.5 text-sm" style={{ color: 'var(--text-1)' }}>
-            <CheckCircle size={14} style={{ color: service.color, flexShrink: 0 }} />
-            {f}
+      <ul className="relative z-10 flex flex-col gap-2">
+        {service.bullets.map((b, j) => (
+          <li key={j} className="flex items-center gap-2 text-sm" style={{ color: '#4A4868' }}>
+            <span className="w-[5px] h-[5px] rounded-full flex-shrink-0" style={{ background: '#7c3aed' }} />
+            {b}
           </li>
         ))}
       </ul>
+
+      <button
+        className="relative z-10 self-start flex items-center gap-1.5 text-sm font-semibold transition-all duration-200 group/btn"
+        style={{ color: '#7c3aed' }}
+        onClick={() => {
+          const el = document.querySelector('#contact');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }}
+      >
+        Learn more
+        <ArrowRight size={14} className="transition-transform duration-200 group-hover/btn:translate-x-1" />
+      </button>
     </motion.div>
   );
 }
@@ -113,61 +126,63 @@ export default function Services() {
       />
 
       <div className="max-w-7xl mx-auto px-6">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="text-center"
         >
           <div
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6"
-            style={{ background: 'rgba(124,58,237,0.08)', border: '1px solid rgba(124,58,237,0.22)', color: '#7c3aed', letterSpacing: '0.12em' }}
+            style={{ background: 'rgba(124,58,237,0.07)', border: '1px solid rgba(124,58,237,0.18)', color: '#7c3aed', letterSpacing: '0.12em' }}
           >
             <Zap size={11} />
             What We Build
           </div>
-          <h2
-            className="font-bold leading-tight mb-4"
-            style={{ fontSize: 'clamp(2rem, 4.5vw, 3.5rem)', color: 'var(--text-0)' }}
-          >
-            The AI team your business <span className="gradient-text">deserves</span>
+          <h2 className="font-bold leading-tight mb-4" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.5rem)', color: '#0D0D18' }}>
+            Four AI services. <span className="gradient-text">One unified goal.</span>
           </h2>
-          <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--text-2)' }}>
-            Every solution is custom-built for your business — no templates, no generic software.
+          <p className="text-lg max-w-2xl mx-auto" style={{ color: '#4A4868' }}>
+            Every solution is custom-built for your business — no templates, no one-size-fits-all software.
           </p>
         </motion.div>
 
-        {/* Service cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+        {/* Bento grid */}
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-14"
+          style={{ gridTemplateColumns: 'repeat(6, 1fr)' }}
+        >
           {services.map((s, i) => (
             <ServiceCard key={i} service={s} index={i} />
           ))}
-        </div>
 
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="relative rounded-3xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6 overflow-hidden"
-          style={{ background: 'rgba(248,245,255,0.97)', border: '1px solid rgba(124,58,237,0.14)', boxShadow: '0 4px 24px rgba(124,58,237,0.07)' }}
-        >
-          <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 0% 50%, rgba(124,58,237,0.07) 0%, transparent 60%)' }} />
-          <div className="relative z-10">
-            <h3 className="text-xl font-bold mb-1" style={{ color: 'var(--text-0)' }}>Not sure what you need?</h3>
-            <p className="text-sm" style={{ color: 'var(--text-2)' }}>Book a free 30-min audit. We'll identify exactly where AI saves you the most time.</p>
-          </div>
-          <button
-            onClick={() => handleNav('#contact')}
-            className="btn-glow relative z-10 shrink-0 px-7 py-3.5 rounded-2xl font-semibold text-sm text-white"
-            style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)' }}
+          {/* CTA bento — full width */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="rounded-2xl p-10 text-center relative overflow-hidden"
+            style={{
+              gridColumn: 'span 6',
+              background: 'linear-gradient(135deg, rgba(124,58,237,0.06) 0%, #F7F4FF 100%)',
+              border: '1px solid rgba(124,58,237,0.16)',
+            }}
           >
-            Book Free Audit →
-          </button>
-        </motion.div>
+            <p className="text-2xl font-bold mb-4" style={{ color: '#0D0D18' }}>Not sure what you need?</p>
+            <p className="text-sm max-w-md mx-auto mb-6" style={{ color: '#4A4868' }}>
+              Book a free 30-minute discovery call. We&apos;ll audit your business and show you exactly where AI can make the biggest difference — no commitment required.
+            </p>
+            <button
+              onClick={() => handleNav('#contact')}
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-sm text-white"
+              style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)', boxShadow: '0 4px 24px rgba(124,58,237,0.32)' }}
+            >
+              Book Free Audit
+            </button>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
