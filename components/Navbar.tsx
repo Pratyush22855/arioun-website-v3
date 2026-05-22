@@ -49,24 +49,8 @@ export default function Navbar() {
       >
         {/* Logo */}
         <button onClick={() => handleNav('#home')} className="flex items-center group">
-          <div
-            className="relative rounded-xl overflow-hidden"
-            style={{
-              width: '108px',
-              height: '54px',
-              background: 'linear-gradient(135deg, #1e0a3c 0%, #3b1270 100%)',
-              boxShadow: '0 2px 12px rgba(124,58,237,0.25)',
-              border: '1px solid rgba(124,58,237,0.35)',
-              flexShrink: 0,
-            }}
-          >
-            <Image
-              src="/logo.png"
-              alt="Arioun AI"
-              fill
-              className="object-contain"
-              style={{ padding: '6px' }}
-            />
+          <div className="relative w-24 h-24">
+            <Image src="/logo.png" alt="Arioun AI" fill className="object-contain" style={{ mixBlendMode: 'multiply' }} />
           </div>
         </button>
 

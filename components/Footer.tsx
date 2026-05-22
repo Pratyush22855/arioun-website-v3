@@ -50,23 +50,8 @@ export default function Footer() {
               onClick={() => handleNav('#home')}
               className="flex items-center gap-2.5 w-fit"
             >
-              <div
-                className="relative rounded-lg overflow-hidden"
-                style={{
-                  width: '48px',
-                  height: '24px',
-                  background: 'linear-gradient(135deg, #1e0a3c 0%, #3b1270 100%)',
-                  border: '1px solid rgba(124,58,237,0.3)',
-                  flexShrink: 0,
-                }}
-              >
-                <Image
-                  src="/logo.png"
-                  alt="Arioun AI"
-                  fill
-                  className="object-contain"
-                  style={{ padding: '3px' }}
-                />
+              <div className="relative w-8 h-8">
+                <Image src="/logo.png" alt="Arioun AI" fill className="object-contain" style={{ mixBlendMode: 'multiply' }} />
               </div>
               <span className="font-bold text-lg" style={{ color: 'var(--text-0)' }}>
                 arioun<span className="gradient-text">.ai</span>
